@@ -229,7 +229,7 @@ function getBossNumByName($bossName)
                 "Sec-Fetch-Site: same-origin\r\n" .
                 "Sec-Fetch-Mode: cors\r\n" .
                 "Sec-Fetch-Dest: empty\r\n" .
-                "Referer: https://www.bigfun.cn/tools/pcrteam/d_report\r\n" .
+                "Referer: https://www.bigfun.cn/tools/pcrteam/boss\r\n" .
                 "Accept-Encoding: gzip, deflate, br\r\n" .
                 "Accept-Language: zh-CN,zh;q=0.9,en;q=0.8\r\n" .
                 "Cookie: " . COOKIE . "\r\n" .
