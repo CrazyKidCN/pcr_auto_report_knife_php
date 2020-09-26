@@ -118,7 +118,7 @@ for ($i = 0; $i < count($arr); $i++) {
     } else if ($arr[$i]['reimburse'] == 1) {
         $knifeName = "剩余刀";
     } else {
-        $knifeName = "正常刀";
+        $knifeName = "完整刀";
     }
 
     // 故意换行的
@@ -175,7 +175,7 @@ HP: " . $T['data']['boss_info']['current_life'] . "/" . $T['data']['boss_info'][
 排名: " . $T['data']['clan_info']['last_ranking'];
         } else {
             // 如果没有出刀数据，那就通知 boss 血量发生了变更
-            echo "BOSS状态更新
+            echo "BOSS状态有更新
 ------------
 讨伐进度: " . $T['data']['boss_info']['name'] . "(" . $T['data']['boss_info']['lap_num'] . "周目" . $bossNo . ")
 HP: " . $T['data']['boss_info']['current_life'] . "/" . $T['data']['boss_info']['total_life'] . "
