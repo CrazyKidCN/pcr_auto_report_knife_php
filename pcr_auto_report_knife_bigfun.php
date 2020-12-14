@@ -8,11 +8,6 @@
  * https://github.com/CrazyKidCN/pcr_auto_report_knife_php
  */
 
-// 打开 bigfun 查刀页面 (https://www.bigfun.cn/tools/pcrteam/d_report) ，登录游戏账号，
-// 按F12查询请求接口的 cookie 和 x-csrf-token ，并填写在下面
-define("COOKIE", "请将这里替换为你的Cookie");
-define("CSRFTOKEN", "请将这里替换为你的x-csrf-token");
-
 // 连接redis服务器
 $redis = new Redis();
 $redis->connect("127.0.0.1");
@@ -25,27 +20,22 @@ if (!checkCD()) die();
 $opts = array(
     'http' => array(
         'method' => "GET",
-        'header' => "Host: www.bigfun.cn\r\n" .
+        'header'=>"Host: api.bigfun.cn\r\n" .
             "Connection: keep-alive\r\n" .
             "Pragma: no-cache\r\n" .
-            "Cache-Control: no-cache\r\n" .
-            "Accept: application/json, text/plain, */*\r\n" .
-            "Sec-Fetch-Site: same-origin\r\n" .
-            "Sec-Fetch-Mode: cors\r\n" .
-            "Sec-Fetch-Dest: empty\r\n" .
-            "Referer: https://www.bigfun.cn/tools/pcrteam/d_report\r\n" .
-            "Accept-Encoding: gzip, deflate, br\r\n" .
-            "Accept-Language: zh-CN,zh;q=0.9,en;q=0.8\r\n" .
-            "Cookie: " . COOKIE . "\r\n" .
-            "User-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36\r\n" .
-            "x-csrf-token: " . CSRFTOKEN
+            "User-Agent: BigFun/3.6.1 (cn.bigfun.firebird; build:3; iOS 14.2.1) Alamofire/4.9.1\r\n" .
+            "Accept: application/vnd.api+json\r\n" .
+            "BF-Client-Version: 3.6.1\r\n" .
+            "Accept-Encoding: gzip;q=1.0, compress;q=0.5\r\n" .
+            "Accept-Language: zh-Hans-MO;q=1.0, en-MO;q=0.9\r\n" .
+            "BF-Client-Type: BF-IOS\r\n"
     )
 );
 
 $context = stream_context_create($opts);
 
 // 去bigfun接口拿数据
-$content = file_get_contents('https://www.bigfun.cn/api/feweb?target=gzlj-clan-day-report%2Fa&size=30', false, $context);
+$content = file_get_contents(getApiAddress(), false, $context);
 $json = json_decode($content, true);
 
 // 获取上次遍历到的最新一次的出刀时间
@@ -135,28 +125,8 @@ if (count($arr) > 0) {
 
 
 // 查当前boss讨伐进度，和行会排名
-$opts = array(
-    'http' => array(
-        'method' => "GET",
-        'header' => "Host: www.bigfun.cn\r\n" .
-            "Connection: keep-alive\r\n" .
-            "Pragma: no-cache\r\n" .
-            "Cache-Control: no-cache\r\n" .
-            "Accept: application/json, text/plain, */*\r\n" .
-            "Sec-Fetch-Site: same-origin\r\n" .
-            "Sec-Fetch-Mode: cors\r\n" .
-            "Sec-Fetch-Dest: empty\r\n" .
-            "Referer: https://www.bigfun.cn/tools/pcrteam/d_report\r\n" .
-            "Accept-Encoding: gzip, deflate, br\r\n" .
-            "Accept-Language: zh-CN,zh;q=0.9,en;q=0.8\r\n" .
-            "Cookie: " . COOKIE . "\r\n" .
-            "User-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36\r\n"
-    )
-);
-
-$context = stream_context_create($opts);
-
-$content = file_get_contents('https://www.bigfun.cn/api/feweb?target=gzlj-clan-day-report-collect%2Fa', false, $context);
+// 请自行在手机客户端打开【公会日报】任意页，使用抓包工具记录访问地址，写在下方，关键词“gzlj-clan-day-report-collect”，下面的url仅为示例
+$content = file_get_contents('https://api.bigfun.cn/webview/iphone?target=gzlj-clan-day-report-collect/a&device_number=xxxxx&ts=xxxxx&access_token=xxxxx&sign=xxxxx', false, $context);
 $T = json_decode($content, true);
 
 
@@ -218,28 +188,10 @@ function checkCD()
  */
 function getBossNumByName($bossName)
 {
-    $opts = array(
-        'http' => array(
-            'method' => "GET",
-            'header' => "Host: www.bigfun.cn\r\n" .
-                "Connection: keep-alive\r\n" .
-                "Pragma: no-cache\r\n" .
-                "Cache-Control: no-cache\r\n" .
-                "Accept: application/json, text/plain, */*\r\n" .
-                "Sec-Fetch-Site: same-origin\r\n" .
-                "Sec-Fetch-Mode: cors\r\n" .
-                "Sec-Fetch-Dest: empty\r\n" .
-                "Referer: https://www.bigfun.cn/tools/pcrteam/boss\r\n" .
-                "Accept-Encoding: gzip, deflate, br\r\n" .
-                "Accept-Language: zh-CN,zh;q=0.9,en;q=0.8\r\n" .
-                "Cookie: " . COOKIE . "\r\n" .
-                "User-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36\r\n"
-        )
-    );
+    global $context;
 
-    $context = stream_context_create($opts);
-
-    $content = file_get_contents('https://www.bigfun.cn/api/feweb?target=gzlj-clan-boss-report-collect%2Fa', false, $context);
+    // 请自行在手机客户端打开【boss报表】，使用抓包工具记录访问地址，写在下方，关键词“gzlj-clan-boss-report-collect”，下面的url仅为示例
+    $content = file_get_contents('https://api.bigfun.cn/webview/iphone?target=gzlj-clan-boss-report-collect/a&device_number=xxxxx&ts=xxxxx&access_token=xxxxx&sign=xxxxx', false, $context);
     $T = json_decode($content, true);
 
     $bossJson = array();
@@ -256,5 +208,40 @@ function getBossNumByName($bossName)
         }
     }
     return "";
+
+    /**
+     * 获取当日的出刀记录API查询地址
+     * @return string 出刀记录API地址
+     */
+    function getApiAddress() {
+        $day = date('d');
+        $hour = date('H');
+
+        // 游戏是凌晨5点跨日，因此取前一天
+        if ($hour < 5) {
+            $day = date("d", strtotime("-1 day"));
+        }
+
+        // 请自行在手机客户端浏览【公会日报】【每一天】的出刀记录【按成员】，使用抓包工具记录接口访问地址，写在下方，关键词“gzlj-clan-day-report”
+        // 关于sign的生成方式我不懂也懒得弄懂，就这样随随便便写一下吧，能用就行，希望 bigfun 高抬贵手
+        // 请勿在手机客户端中登出账号，否则接口也将失效。
+
+        if ($day == 14) {
+            // 仅为示例url，请替换为实际抓到的url，下同
+            return "https://api.bigfun.cn/webview/iphone?size=30&date=2020-12-14&target=gzlj-clan-day-report/a&device_number=随机字符&ts=随机字符&access_token=随机字符&sign=随机字符";
+        } else if ($day == 15) {
+            return "";
+        } else if ($day == 16) {
+            return "";
+        } else if ($day == 17) {
+            return "";
+        } else if ($day == 18) {
+            return "";
+        } else if ($day == 19) {
+            return "";
+        } else {
+            die("");
+        }
+    }
 }
 

@@ -5,7 +5,8 @@
 一个调用 `bigfun` 接口获取出刀数据并将其转换为报刀语句的php
 
 ## 使用方法
-- 打开 bigfun 查刀页面 (https://www.bigfun.cn/tools/pcrteam/d_report) ，登录游戏账号，按F12查询请求接口的 `cookie` 和 `x-csrf-token` ，并填写在源码相应位置
+- ~~打开 bigfun 查刀页面 (https://www.bigfun.cn/tools/pcrteam/d_report) ，登录游戏账号，按F12查询请求接口的 `cookie` 和 `x-csrf-token` ，并填写在源码相应位置~~
+- 射手座公会战起实时的出刀数据只能在 APP 里查看，因此需要在手机端使用抓包工具获得接口地址，填写在源码对应位置，详见源码内注释。(iOS 我使用的是`surge`)
 - 将 .php 扔到服务器里，注意服务器需安装 redis 以及 php 要安装 redis 扩展。
 - 用你的 QQ 机器人后端轮询该接口，判断返回内容不为空的时候直接往QQ群发信息。轮询频率随意，源码内已经限制请求 bigfun 接口的频率
 
@@ -18,6 +19,11 @@
 
 
 ## 更新日志
+##### 2020/12/14
+- 修改请求 header 为 bigfun 手机客户端内 header
+- 修改 api 路径相关代码
+- bigfun 已限制出刀数据只能在 APP 里做到实时查看，网页版的改为了每天0点更新，因此如要继续使用本php，需自行到 bigfun 手机客户端内抓取当期会战每一天的出刀记录的接口地址，填写在源码里对应位置，详见注释。
+
 ##### 2020/9/26
 - 格式化了代码
 - 把 `cookie` 和 `x-csrf-token` 配置项提取出来为常量
