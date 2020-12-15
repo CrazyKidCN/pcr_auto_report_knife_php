@@ -1,6 +1,11 @@
 # pcr_auto_report_knife_php
 公主连结国服自动报刀接口
 
+私人广告：求公会，box会战角色除了智其他都有，晚上7点后出刀，接受排刀，QQ694372459
+
+## 项目地址
+https://github.com/CrazyKidCN/pcr_auto_report_knife_php
+
 ## 简介
 一个调用 `bigfun` 接口获取出刀数据并将其转换为报刀语句的php
 
@@ -19,6 +24,12 @@
 
 
 ## 更新日志
+##### 2020/12/15
+- 新增查刀接口，输出公会成员剩余刀数。一样是填接口地址到对应源码里，机器人去请求然后发到群里即可。
+- 由于本人不看好这种接口调用方式还能长久使用，部分重复代码的地方就懒得抽公用了。
+- 效果图为转换成图片后发送，为了规避公会成员名称导致的腾讯的敏感词过滤，详见源码。
+- ![image](https://github.com/CrazyKidCN/pcr_auto_report_knife_php/blob/master/preview_knifeLeft.jpg)
+
 ##### 2020/12/14
 - 修改请求 header 为 bigfun 手机客户端内 header
 - 修改 api 路径相关代码
