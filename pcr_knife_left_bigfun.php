@@ -15,9 +15,9 @@ $opts = array(
         'header' => "Host: api.bigfun.cn\r\n" .
             "Connection: keep-alive\r\n" .
             "Pragma: no-cache\r\n" .
-            "User-Agent: BigFun/3.6.1 (cn.bigfun.firebird; build:3; iOS 14.2.1) Alamofire/4.9.1\r\n" .
+            "User-Agent: BigFun/3.7.2 (cn.bigfun.firebird; build:3; iOS 14.2.1) Alamofire/4.9.1\r\n" .
             "Accept: application/vnd.api+json\r\n" .
-            "BF-Client-Version: 3.6.1\r\n" .
+            "BF-Client-Version: 3.7.2\r\n" .
             "Accept-Encoding: gzip;q=1.0, compress;q=0.5\r\n" .
             "Accept-Language: zh-Hans-MO;q=1.0, en-MO;q=0.9\r\n" .
             "BF-Client-Type: BF-IOS\r\n"

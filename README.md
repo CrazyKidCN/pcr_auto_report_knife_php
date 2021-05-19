@@ -1,8 +1,6 @@
 # pcr_auto_report_knife_php
 公主连结国服自动报刀接口
 
-私人广告：求公会，box会战角色除了智其他都有，晚上7点后出刀，接受排刀，QQ694372459
-
 ## 项目地址
 https://github.com/CrazyKidCN/pcr_auto_report_knife_php
 
